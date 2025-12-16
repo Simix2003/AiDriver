@@ -84,8 +84,8 @@ Each phase is intentionally scoped to remain lightweight and focused.
 
 * [x] Project setup
 * [x] Environment configuration
-* [ ] Parking environment baseline
-* [ ] Random agent benchmark
+* [x] Parking environment baseline
+* [x] Random agent benchmark
 
 ### Phase 2: Parking & Obstacles
 
@@ -169,6 +169,29 @@ python sanity_run.py
 
 This launches a parking environment with a random agent.
 
+### Random Agent Benchmark
+
+Run a baseline benchmark with a random agent to establish performance metrics:
+
+```bash
+python run_benchmark.py --episodes 100
+```
+
+Options:
+- `--episodes N`: Number of episodes to run (default: 100)
+- `--render`: Render the environment during evaluation
+- `--seed N`: Set random seed for reproducibility
+- `--output PATH`: Output file path (default: `data/logs/random_agent_benchmark.json`)
+- `--quiet`: Suppress progress output
+
+The benchmark collects metrics including:
+- Success rate
+- Mean reward and standard deviation
+- Average episode length
+- Per-episode detailed metrics
+
+Results are saved to a JSON file for comparison with trained agents.
+
 ### Training
 
 Training scripts are under active development.
@@ -184,14 +207,22 @@ AiDriver/
 ├── README.md
 ├── requirements.txt
 ├── sanity_run.py
+├── run_benchmark.py
 │
 ├── src/
 │   ├── agents/
+│   │   ├── __init__.py
+│   │   └── random_agent.py
 │   ├── environments/
 │   ├── training/
 │   ├── evaluation/
+│   │   ├── __init__.py
+│   │   ├── benchmark.py
+│   │   └── run_benchmark.py
 │   ├── utils/
 │   └── config/
+│       ├── __init__.py
+│       └── env_config.py
 │
 ├── models/
 │   ├── parking/
