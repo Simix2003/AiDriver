@@ -1,0 +1,14 @@
+# Core dependencies
+gymnasium>=0.29.0
+highway-env>=1.8.0
+
+# Reinforcement Learning
+# stable-baselines3[extra] includes: pandas, matplotlib, tensorboard, opencv-python, 
+# pygame, psutil, tqdm, rich, ale-py, pillow, and more
+stable-baselines3[extra]>=2.0.0
+
+# Development (optional)
+pytest>=7.4.0
+black>=23.0.0
+flake8>=6.0.0
+
