@@ -89,7 +89,10 @@ Each phase is intentionally scoped to remain lightweight and focused.
 
 ### Phase 2: Parking & Obstacles
 
-* [ ] Goal‑conditioned parking (empty lot)
+* [x] Goal‑conditioned parking (empty lot)
+    ```bash
+    python src/evaluation/evaluate_parking.py --model-path models/parking/sac_her_20251216_222821/best/best_model.zip --render --episodes 10
+    ```
 * [ ] Parking with static obstacles
 * [ ] Parking with constrained space
 * [ ] Evaluation metrics and success rate
