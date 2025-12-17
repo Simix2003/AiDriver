@@ -13,9 +13,9 @@ import sys
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
+import gymnasium as gym
 from src.agents.random_agent import RandomAgent
 from src.evaluation.benchmark import run_benchmark
-from src.config.env_config import make_parking_env
 import highway_env  # Register environments
 
 
@@ -60,9 +60,31 @@ def main():
     
     args = parser.parse_args()
     
-    # Create environment
+    # Create environment (using same approach as new_try.py)
     print("Creating parking environment...")
-    env = make_parking_env(render_mode="human" if args.render else None)
+    env = gym.make("parking-v0", render_mode="human" if args.render else None)
+    
+    # Configure environment similar to new_try.py
+    config = {
+        "observation": {
+            "type": "KinematicsGoal",
+            "features": ["x", "y", "vx", "vy", "cos_h", "sin_h"],
+            "scales": [100, 100, 5, 5, 1, 1],
+            "normalize": True,
+        },
+        "action": {"type": "ContinuousAction"},
+        "controlled_vehicles": 1,
+        "vehicles_count": 0,
+        "add_walls": False,
+        "duration": 120,
+        "simulation_frequency": 15,
+        "policy_frequency": 5,
+    }
+    
+    if hasattr(env, "configure"):
+        env.configure(config)
+    elif hasattr(env, "unwrapped") and hasattr(env.unwrapped, "configure"):
+        env.unwrapped.configure(config)
     
     # Create random agent
     print("Initializing random agent...")
